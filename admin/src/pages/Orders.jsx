@@ -7,6 +7,7 @@ import { assets } from '../assets/assets'
 const Orders = ({ token }) => {
 
   const [orders, setOrders] = useState([])
+  const currency = "VND";
 
   const fetchAllOrders = async () => {
 
@@ -78,7 +79,7 @@ const Orders = ({ token }) => {
                 <p>Thanh toán : { order.payment ? 'Hoàn thành' : 'Đang chờ' }</p>
                 <p>Ngày : {new Date(order.date).toLocaleDateString()}</p>
               </div>
-              <p className='text-sm sm:text-[15px]'>{currency}{order.amount}</p>
+              <p className='text-sm sm:text-[15px]'>{order.amount} {currency}</p>
               <select onChange={(event)=>statusHandler(event,order._id)} value={order.status} className='p-2 font-semibold'>
                 <option value="Order Placed">Đơn hàng đã đặt</option>
                 <option value="Packing">Đang đóng gói</option>

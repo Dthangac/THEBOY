@@ -16,22 +16,23 @@ const CartTotal = () => {
         <div className="flex justify-between">
           <p>Tổng phụ</p>
           <p>
-            {currency} {getCartAmount()}.00
+            {getCartAmount()} {currency}
           </p>
         </div>
         <hr />
         <div className="flex justify-between">
           <p>Phí vận chuyển</p>
           <p>
-            {currency} {delivery_fee}.00
+            {delivery_fee} {currency}
           </p>
         </div>
         <hr />
         <div className="flex justify-between">
           <b>Tổng cộng</b>
           <b>
-            {currency}{" "}
-            {getCartAmount() === 0 ? 0 : getCartAmount() + delivery_fee}.00
+            {" "}
+            {getCartAmount() === 0 ? 0 : getCartAmount() + delivery_fee}{" "}
+            {currency}
           </b>
         </div>
       </div>

@@ -109,9 +109,9 @@ const Add = ({token}) => {
             <div>
               <p className='mb-2'>Danh mục con</p>
               <select onChange={(e) => setSubCategory(e.target.value)} className='w-full px-3 py-2'>
-                  <option value="Áo trên">Áo Khoác</option>
+                  <option value="Áo trên">Áo</option>
                   <option value="Áo dưới">Quần</option>
-                  <option value="Áo mùa đông">Áo mùa đông</option>
+                  <option value="Áo mùa đông">Áo khoác</option>
               </select>
             </div>
 

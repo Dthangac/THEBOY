@@ -59,7 +59,7 @@ const Orders = () => {
                   <p>
                     {item.price} {currency}
                   </p>
-                  <p>Quantity: {item.quantity}</p>
+                  <p>Số lượng: {item.quantity}</p>
                   <p>Size: {item.size}</p>
                 </div>
                 <p className="mt-1">
@@ -69,7 +69,7 @@ const Orders = () => {
                   </span>
                 </p>
                 <p className="mt-1">
-                  Payment:{" "}
+                  Phương thức:{" "}
                   <span className=" text-gray-400">{item.paymentMethod}</span>
                 </p>
               </div>
@@ -83,7 +83,7 @@ const Orders = () => {
                 onClick={loadOrderData}
                 className="border px-4 py-2 text-sm font-medium rounded-sm"
               >
-                Track Order
+                Trạng thái đơn hàng
               </button>
             </div>
           </div>

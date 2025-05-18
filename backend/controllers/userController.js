@@ -17,7 +17,7 @@ const loginUser = async (req, res) => {
         const user = await userModel.findOne({ email });
 
         if (!user) {
-            return res.json({ success: false, message: "User doesn't exists" })
+            return res.json({ success: false, message: "Người dùng không tồn tại" })
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
@@ -29,7 +29,7 @@ const loginUser = async (req, res) => {
 
         }
         else {
-            res.json({ success: false, message: 'Invalid credentials' })
+            res.json({ success: false, message: 'Thông tin đăng nhập không hợp lệ' })
         }
 
     } catch (error) {
@@ -47,15 +47,18 @@ const registerUser = async (req, res) => {
         // checking user already exists or not
         const exists = await userModel.findOne({ email });
         if (exists) {
-            return res.json({ success: false, message: "User already exists" })
+            return res.json({
+              success: false,
+              message: "Người dùng đã tồn tại",
+            });
         }
 
         // validating email format & strong password
         if (!validator.isEmail(email)) {
-            return res.json({ success: false, message: "Please enter a valid email" })
+            return res.json({ success: false, message: "Vui lòng nhập Email hợp lệ" })
         }
         if (password.length < 8) {
-            return res.json({ success: false, message: "Please enter a strong password" })
+            return res.json({ success: false, message: "Thử lại mật khẩu mạnh hơn" })
         }
 
         // hashing user password

@@ -63,7 +63,7 @@ const placeOrderVNPay = async (req, res) => {
             vnp_CurrCode: currency.toUpperCase(),
             vnp_IpAddr: ipAddr,
             vnp_Locale: 'vn',
-            vnp_OrderInfo: `Thanh toan don hang ${orderId}`,
+            vnp_OrderInfo: `Thanh toán đơn hàng ${orderId}`,
             vnp_OrderType: '250000',
             vnp_ReturnUrl,
             vnp_TxnRef: orderId
@@ -147,7 +147,7 @@ const updateStatus = async (req, res) => {
     try {
         const { orderId, status } = req.body;
         await orderModel.findByIdAndUpdate(orderId, { status });
-        res.json({ success: true, message: 'Status Updated' });
+        res.json({ success: true, message: 'Đã cập nhật trạng thái' });
     } catch (error) {
         console.log(error);
         res.json({ success: false, message: error.message });

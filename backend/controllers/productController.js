@@ -29,7 +29,7 @@ const addProduct = async (req, res) => {
         subCategory,
         bestseller: bestseller === "true" ? true : false,
         sizes: JSON.parse(sizes),
-        colors: colors ? JSON.parse(colors) : ['đỏ', 'xanh', 'đen', 'lục', 'trắng'], // Mặc định các màu
+        colors: colors ? JSON.parse(colors) : ['Đỏ', 'Xanh', 'Đen', 'Lục', 'Trắng'], // Mặc định các màu
         image: imagesUrl,
         date: Date.now(),
       };
@@ -37,7 +37,7 @@ const addProduct = async (req, res) => {
       const product = new productModel(productData);
       await product.save();
   
-      res.json({ success: true, message: "Product Added" });
+      res.json({ success: true, message: "Đã thêm sản phẩm" });
     } catch (error) {
       console.log(error);
       res.json({ success: false, message: error.message });

@@ -23,7 +23,7 @@ const addToCart = async (req, res) => {
       }
   
       await cart.save();
-      res.json({ success: true, message: "Added to cart", cartData: cart.items });
+      res.json({ success: true, message: "Đã thêm vào giỏ hàng", cartData: cart.items });
     } catch (error) {
       res.json({ success: false, message: error.message });
     }

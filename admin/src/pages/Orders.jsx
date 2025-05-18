@@ -81,11 +81,11 @@ const Orders = ({ token }) => {
               </div>
               <p className='text-sm sm:text-[15px]'>{order.amount} {currency}</p>
               <select onChange={(event)=>statusHandler(event,order._id)} value={order.status} className='p-2 font-semibold'>
-                <option value="Order Placed">Đơn hàng đã đặt</option>
-                <option value="Packing">Đang đóng gói</option>
-                <option value="Shipped">Đã gửi</option>
-                <option value="Out for delivery">Đang giao hàng</option>
-                <option value="Delivered">Đã giao</option>
+                <option value="Đặt hàng thành công">Đơn hàng đã đặt</option>
+                <option value="Đang đóng gói">Đang đóng gói</option>
+                <option value="Đã gửi">Đã gửi</option>
+                <option value="Đang giao">Đang giao hàng</option>
+                <option value="Đã giao">Đã giao</option>
               </select>
             </div>
           ))

@@ -4,27 +4,58 @@
 @tailwind components;
 @tailwind utilities;
 
-a.active hr{
-    display: block;
+a.active hr {
+  display: block;
 }
 
-*{
-    font-family: Tahoma, sans-serif;
+* {
+  font-family: Tahoma, sans-serif;
 }
 
 .prata-regular {
-    font-family: "Prata", serif;
-    font-weight: 400;
-    font-style: normal;
-  }
+  font-family: "Prata", serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
-  ::-webkit-scrollbar{
-    display: none;
+::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  a.active {
+    background-color: black;
+    color: white;
   }
-  
-  @media (max-width:640px) {
-    a.active{
-        background-color: black;
-        color: white;
-    }
+}
+
+/* Thêm style cho các nút chọn màu và size */
+.color-btn,
+.size-btn {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.color-btn:hover,
+.size-btn:hover {
+  border-color: #666;
+}
+
+.color-btn.selected,
+.size-btn.selected {
+  border-color: #f97316; /* Màu cam tương tự border-orange-500 */
+  font-weight: 600;
+  background-color: #fef3e7; /* Nền nhạt khi được chọn */
+}
+
+/* Đảm bảo nút chọn màu và size hiển thị tốt trên thiết bị nhỏ */
+@media (max-width: 640px) {
+  .color-btn,
+  .size-btn {
+    padding: 6px 12px;
+    font-size: 14px;
   }
+}

@@ -1,50 +1,39 @@
-import React from 'react'
-import { useContext } from 'react'
-import { ShopContext } from '../context/ShopContext'
-import { useSearchParams } from 'react-router-dom'
-import { useEffect } from 'react'
-import {toast} from 'react-toastify'
-import axios from 'axios'
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Verify = () => {
-
-    const { navigate, token, setCartItems, backendUrl } = useContext(ShopContext)
-    const [searchParams, setSearchParams] = useSearchParams()
-    
-    const success = searchParams.get('success')
-    const orderId = searchParams.get('orderId')
-
-    const verifyPayment = async () => {
-        try {
-
-            if (!token) {
-                return null
-            }
-
-            const response = await axios.post(backendUrl + '/api/order/verifyStripe', { success, orderId }, { headers: { token } })
-
-            if (response.data.success) {
-                setCartItems({})
-                navigate('/orders')
-            } else {
-                navigate('/cart')
-            }
-
-        } catch (error) {
-            console.log(error)
-            toast.error(error.message)
-        }
-    }
-
-    useEffect(() => {
-        verifyPayment()
-    }, [token])
+    const navigate = useNavigate();
+    const location = useLocation();
+    const query = new URLSearchParams(location.search);
+    const success = query.get('success') === 'true';
 
     return (
-        <div>
-
+        <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
+            {success ? (
+                <>
+                    <h2 className="text-2xl font-bold text-green-600 mb-4">Thanh toán thành công</h2>
+                    <button
+                        onClick={() => navigate('/orders')}
+                        className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800"
+                    >
+                        Xem đơn hàng
+                    </button>
+                </>
+            ) : (
+                <>
+                    <h2 className="text-2xl font-bold text-red-600 mb-4">Thanh toán thất bại</h2>
+                    <p className="text-gray-600 mb-4">Vui lòng thử lại.</p>
+                    <button
+                        onClick={() => navigate('/cart')}
+                        className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800"
+                    >
+                        Quay lại giỏ hàng
+                    </button>
+                </>
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default Verify
+export default Verify;

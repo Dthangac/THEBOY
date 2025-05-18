@@ -1,32 +1,46 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
 import { assets } from '../assets/assets';
 import RelatedProducts from '../components/RelatedProducts';
 
 const Product = () => {
-
   const { productId } = useParams();
-  const { products, currency ,addToCart } = useContext(ShopContext);
-  const [productData, setProductData] = useState(false);
-  const [image, setImage] = useState('')
-  const [size,setSize] = useState('')
+  const { products, currency, addToCart } = useContext(ShopContext);
+  const [productData, setProductData] = useState(null);
+  const [image, setImage] = useState('');
+  const [size, setSize] = useState('');
+  const [color, setColor] = useState('đỏ'); // Mặc định màu đầu tiên
+  const [price, setPrice] = useState(0);
 
   const fetchProductData = async () => {
-
-    products.map((item) => {
-      if (item._id === productId) {
-        setProductData(item)
-        setImage(item.image[0])
-        return null;
-      }
-    })
-
-  }
+    const foundProduct = products.find((item) => item._id === productId);
+    if (foundProduct) {
+      setProductData(foundProduct);
+      setImage(foundProduct.image[0]);
+      setPrice(foundProduct.price); // Giá mặc định
+    }
+  };
 
   useEffect(() => {
     fetchProductData();
-  }, [productId,products])
+  }, [productId, products]);
+
+  // Cập nhật giá dựa trên màu và size
+  useEffect(() => {
+    if (productData && size && color) {
+      const basePrice = productData.price;
+      const priceAdjustments = {
+        'xanh': { 'S': -20000, 'M': -10000, 'L': 10000, 'XL': 20000, 'XXL': 30000 },
+        'đỏ': { 'S': -10000, 'M': -20000, 'L': 10000, 'XL': 20000, 'XXL': 30000 },
+        'đen': { 'S': -30000, 'M': -40000, 'L': 10000, 'XL': 20000, 'XXL': 30000 },
+        'lục': { 'S': -40000, 'M': -30000, 'L': 10000, 'XL': 20000, 'XXL': 30000 },
+        'trắng': { 'S': -50000, 'M': -50000, 'L': 10000, 'XL': 20000, 'XXL': 30000 },
+      };
+      const adjustment = priceAdjustments[color][size] || 0;
+      setPrice(basePrice + adjustment);
+    }
+  }, [size, color, productData]);
 
   return productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
@@ -53,16 +67,16 @@ const Product = () => {
         {/* -------- Product Info ---------- */}
         <div className="flex-1">
           <h1 className="font-medium text-2xl mt-2">{productData.name}</h1>
-          <div className=" flex items-center gap-1 mt-2">
-            <img src={assets.star_icon} alt="" className="w-3 5" />
-            <img src={assets.star_icon} alt="" className="w-3 5" />
-            <img src={assets.star_icon} alt="" className="w-3 5" />
-            <img src={assets.star_icon} alt="" className="w-3 5" />
-            <img src={assets.star_dull_icon} alt="" className="w-3 5" />
+          <div className="flex items-center gap-1 mt-2">
+            <img src={assets.star_icon} alt="" className="w-3.5" />
+            <img src={assets.star_icon} alt="" className="w-3.5" />
+            <img src={assets.star_icon} alt="" className="w-3.5" />
+            <img src={assets.star_icon} alt="" className="w-3.5" />
+            <img src={assets.star_dull_icon} alt="" className="w-3.5" />
             <p className="pl-2">(122)</p>
           </div>
           <p className="mt-5 text-3xl font-medium">
-            {productData.price} {currency}
+            {price.toLocaleString()} {currency}
           </p>
           <p className="mt-5 text-gray-500 md:w-4/5">
             {productData.description}
@@ -74,7 +88,23 @@ const Product = () => {
                 <button
                   onClick={() => setSize(item)}
                   className={`border py-2 px-4 bg-gray-100 ${
-                    item === size ? "border-orange-500" : ""
+                    item === size ? 'border-orange-500' : ''
+                  }`}
+                  key={index}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col gap-4 my-8">
+            <p>Chọn màu</p>
+            <div className="flex gap-2">
+              {['đỏ', 'xanh', 'đen', 'lục', 'trắng'].map((item, index) => (
+                <button
+                  onClick={() => setColor(item)}
+                  className={`border py-2 px-4 bg-gray-100 ${
+                    item === color ? 'border-orange-500' : ''
                   }`}
                   key={index}
                 >
@@ -84,8 +114,9 @@ const Product = () => {
             </div>
           </div>
           <button
-            onClick={() => addToCart(productData._id, size)}
+            onClick={() => addToCart(productData._id, size, color)} // Thêm color vào giỏ hàng
             className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
+            disabled={!size || !color} // Vô hiệu hóa nếu chưa chọn size hoặc màu
           >
             THÊM VÀO GIỎ HÀNG
           </button>
@@ -124,15 +155,14 @@ const Product = () => {
       </div>
 
       {/* --------- display related products ---------- */}
-
       <RelatedProducts
         category={productData.category}
         subCategory={productData.subCategory}
       />
     </div>
   ) : (
-    <div className=" opacity-0"></div>
+    <div className="opacity-0"></div>
   );
-}
+};
 
-export default Product
+export default Product;

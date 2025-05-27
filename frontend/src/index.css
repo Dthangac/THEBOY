@@ -48,7 +48,7 @@ a.active hr {
 .size-btn.selected {
   border-color: #f97316; /* Màu cam tương tự border-orange-500 */
   font-weight: 600;
-  background-color: #fef3e7; /* Nền nhạt khi được chọn */
+  background-color: #71593f; /* Nền nhạt khi được chọn */
 }
 
 /* Đảm bảo nút chọn màu và size hiển thị tốt trên thiết bị nhỏ */

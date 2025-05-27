@@ -18,7 +18,7 @@ const Product = () => {
     if (foundProduct) {
       setProductData(foundProduct);
       setImage(foundProduct.image[0]);
-      setPrice(foundProduct.price); // Giá mặc định
+      setPrice(foundProduct.price.toLocaleString()); 
     }
   };
 
@@ -26,7 +26,6 @@ const Product = () => {
     fetchProductData();
   }, [productId, products]);
 
-  // Cập nhật giá dựa trên màu và size
   useEffect(() => {
     if (productData && size && color) {
       const basePrice = productData.price;
@@ -116,7 +115,7 @@ const Product = () => {
           <button
             onClick={() => addToCart(productData._id, size, color)} // Thêm color vào giỏ hàng
             className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
-            disabled={!size || !color} // Vô hiệu hóa nếu chưa chọn size hoặc màu
+            disabled={!size || !color} 
           >
             THÊM VÀO GIỎ HÀNG
           </button>
@@ -153,8 +152,6 @@ const Product = () => {
           </p>
         </div>
       </div>
-
-      {/* --------- display related products ---------- */}
       <RelatedProducts
         category={productData.category}
         subCategory={productData.subCategory}

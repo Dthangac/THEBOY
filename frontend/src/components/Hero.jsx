@@ -6,7 +6,7 @@ const Hero = () => {
   const navigate = useNavigate();
 
   const handleBuyNow = () => {
-    navigate("/collection"); // Đổi '/collection' thành route bộ sưu tập của bạn nếu khác
+    navigate("/collection"); 
   };
 
   return (

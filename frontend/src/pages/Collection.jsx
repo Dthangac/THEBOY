@@ -12,7 +12,7 @@ const Collection = () => {
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState("relavent");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8; // Số sản phẩm mỗi trang, bạn có thể chỉnh
+  const itemsPerPage = 8;
 
   const toggleCategory = (e) => {
     if (category.includes(e.target.value)) {
@@ -143,7 +143,7 @@ const Collection = () => {
             </p>
           </div>
         </div>
-        {/* SubCategory Filter */}
+        SubCategory Filter
         <div
           className={`border border-gray-300 pl-5 py-3 my-5 ${
             showFilter ? "" : "hidden"
@@ -219,17 +219,49 @@ const Collection = () => {
           >
             &lt;
           </button>
-          {Array.from({ length: totalPages }, (_, i) => (
+
+          {/* Trang đầu */}
+          <button
+            onClick={() => setCurrentPage(1)}
+            className={`px-3 py-1 border rounded ${
+              currentPage === 1 ? "bg-black text-white" : ""
+            }`}
+          >
+            1
+          </button>
+
+         
+          {currentPage > 3 && totalPages > 3 && (
+            <span className="px-2">...</span>
+          )}
+
+         
+          {currentPage !== 1 && currentPage !== totalPages && (
             <button
-              key={i}
-              onClick={() => setCurrentPage(i + 1)}
+              className="px-3 py-1 border rounded bg-black text-white"
+              disabled
+            >
+              {currentPage}
+            </button>
+          )}
+
+       
+          {currentPage < totalPages - 2 && totalPages > 3 && (
+            <span className="px-2">...</span>
+          )}
+
+         
+          {totalPages > 1 && (
+            <button
+              onClick={() => setCurrentPage(totalPages)}
               className={`px-3 py-1 border rounded ${
-                currentPage === i + 1 ? "bg-black text-white" : ""
+                currentPage === totalPages ? "bg-black text-white" : ""
               }`}
             >
-              {i + 1}
+              {totalPages}
             </button>
-          ))}
+          )}
+
           <button
             onClick={() =>
               setCurrentPage((prev) => Math.min(prev + 1, totalPages))

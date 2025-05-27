@@ -41,6 +41,23 @@ const BestSeller = () => {
     [products]
   );
 
+  // Sản phẩm bán chạy của phụ kiện
+  const bestSellerAccessory = useMemo(
+    () =>
+      products
+        .filter(
+          (item) =>
+            item.bestseller &&
+            item.category &&
+            (item.category.toLowerCase() === "phụ kiện" ||
+              item.category.toLowerCase() === "phu kien" ||
+              item.category.toLowerCase() === "accessory" ||
+              item.category.toLowerCase() === "accessories")
+        )
+        .slice(0, 5),
+    [products]
+  );
+
   return (
     <div>
       {/* Khu vực bán chạy tổng hợp */}
@@ -70,6 +87,9 @@ const BestSeller = () => {
 
       {/* Khu vực bán chạy nam */}
       <BestSellerList title="NAM" products={bestSellerMale} />
+
+      {/* Khu vực bán chạy phụ kiện */}
+      <BestSellerList title="PHỤ KIỆN" products={bestSellerAccessory} />
     </div>
   );
 };

@@ -230,12 +230,10 @@ const Collection = () => {
             1
           </button>
 
-         
           {currentPage > 3 && totalPages > 3 && (
             <span className="px-2">...</span>
           )}
 
-         
           {currentPage !== 1 && currentPage !== totalPages && (
             <button
               className="px-3 py-1 border rounded bg-black text-white"
@@ -245,12 +243,10 @@ const Collection = () => {
             </button>
           )}
 
-       
           {currentPage < totalPages - 2 && totalPages > 3 && (
             <span className="px-2">...</span>
           )}
 
-         
           {totalPages > 1 && (
             <button
               onClick={() => setCurrentPage(totalPages)}

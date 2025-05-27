@@ -54,14 +54,14 @@ const BestSeller = () => {
               item.category.toLowerCase() === "accessory" ||
               item.category.toLowerCase() === "accessories")
         )
-        .slice(0, 5),
+        .slice(0, 10),
     [products]
   );
 
   return (
     <div>
       {/* Khu vực bán chạy tổng hợp */}
-      <div className="my-10">
+      {/* <div className="my-10">
         <div className="text-center text-3xl py-8">
           <Title text1={"NHỮNG SẢN PHẨM BÁN CHẠY"} text2={"NHẤT"} />
           <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600">
@@ -80,7 +80,7 @@ const BestSeller = () => {
             />
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Khu vực bán chạy nữ */}
       <BestSellerList title="NỮ" products={bestSellerFemale} />

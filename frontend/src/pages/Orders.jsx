@@ -57,7 +57,7 @@ const Orders = () => {
                 <p className="sm:text-base font-medium">{item.name}</p>
                 <div className="flex items-center gap-3 mt-1 text-base text-gray-700">
                   <p>
-                    {item.price} {currency}
+                    {item.price.toLocaleString()} {currency}
                   </p>
                   <p>Số lượng: {item.quantity}</p>
                   <p>Size: {item.size}</p>

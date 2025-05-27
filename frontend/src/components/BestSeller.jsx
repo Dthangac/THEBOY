@@ -3,6 +3,7 @@ import { ShopContext } from "../context/ShopContext";
 import Title from "./Title";
 import ProductItem from "./ProductItem";
 import BestSellerList from "./BestSellerList";
+import { assets } from "../assets/assets";
 
 const BestSeller = () => {
   const { products } = useContext(ShopContext);
@@ -81,6 +82,12 @@ const BestSeller = () => {
           ))}
         </div>
       </div> */}
+      {/* Banner trước sản phẩm nữ bán chạy */}
+      <img
+        src={assets.banner1}
+        alt="Banner Sản Phẩm Nữ Bán Chạy"
+        className="w-full mb-2"
+      />
 
       {/* Khu vực bán chạy nữ */}
       <BestSellerList title="NỮ" products={bestSellerFemale} />

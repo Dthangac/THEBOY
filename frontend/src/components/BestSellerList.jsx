@@ -5,7 +5,7 @@ import ProductItem from "./ProductItem";
 const BestSellerList = ({ title, products }) => (
   <div className="my-10">
     <div className="text-center text-3xl py-8">
-      <Title text1={"NHỮNG SẢN PHẨM BÁN CHẠY"} text2={title} />
+      <Title text1={"NHỮNG SẢN PHẨM"} text2={title} text3={"BÁN CHẠY"} />
     </div>
     {products.length === 0 ? (
       <div className="text-center text-gray-500 py-10">

@@ -58,7 +58,7 @@ const BestSeller = () => {
               id={item._id}
               name={item.name}
               image={item.image}
-              price={item.price}
+              price={item.price.toLocaleString()}
               isHot={true}
             />
           ))}

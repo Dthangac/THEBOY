@@ -10,7 +10,7 @@ const Product = () => {
   const [productData, setProductData] = useState(null);
   const [image, setImage] = useState('');
   const [size, setSize] = useState('');
-  const [color, setColor] = useState('đỏ'); // Mặc định màu đầu tiên
+  const [color, setColor] = useState('Đỏ'); // Mặc định màu đầu tiên
   const [price, setPrice] = useState(0);
 
   const fetchProductData = async () => {
@@ -31,11 +31,11 @@ const Product = () => {
     if (productData && size && color) {
       const basePrice = productData.price;
       const priceAdjustments = {
-        'xanh': { 'S': -20000, 'M': -10000, 'L': 10000, 'XL': 20000, 'XXL': 30000 },
-        'đỏ': { 'S': -10000, 'M': -20000, 'L': 10000, 'XL': 20000, 'XXL': 30000 },
-        'đen': { 'S': -30000, 'M': -40000, 'L': 10000, 'XL': 20000, 'XXL': 30000 },
-        'lục': { 'S': -40000, 'M': -30000, 'L': 10000, 'XL': 20000, 'XXL': 30000 },
-        'trắng': { 'S': -50000, 'M': -50000, 'L': 10000, 'XL': 20000, 'XXL': 30000 },
+        'Xanh': { 'S': -20000, 'M': -10000, 'L': 10000, 'XL': 20000, 'XXL': 10000 },
+        'Đỏ': { 'S': -10000, 'M': -20000, 'L': 10000, 'XL': 20000, 'XXL': 10000 },
+        'Đen': { 'S': -30000, 'M': -40000, 'L': 10000, 'XL': 20000, 'XXL': 40000 },
+        'Lục': { 'S': -40000, 'M': -30000, 'L': 10000, 'XL': 20000, 'XXL': 30000 },
+        'Trắng': { 'S': -50000, 'M': -50000, 'L': 10000, 'XL': 20000, 'XXL': 50000 },
       };
       const adjustment = priceAdjustments[color][size] || 0;
       setPrice(basePrice + adjustment);
@@ -100,7 +100,7 @@ const Product = () => {
           <div className="flex flex-col gap-4 my-8">
             <p>Chọn màu</p>
             <div className="flex gap-2">
-              {['đỏ', 'xanh', 'đen', 'lục', 'trắng'].map((item, index) => (
+              {['Đỏ', 'Xanh', 'Đen', 'Lục', 'Trắng'].map((item, index) => (
                 <button
                   onClick={() => setColor(item)}
                   className={`border py-2 px-4 bg-gray-100 ${

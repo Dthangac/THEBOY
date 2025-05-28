@@ -121,9 +121,9 @@ const Add = ({token}) => {
                 <div className='flex-1'>
                   <p className='mb-2 text-gray-700 font-medium'>Danh mục con</p>
                   <select onChange={(e) => setSubCategory(e.target.value)} value={subCategory} className='w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out bg-white appearance-none'>
-                      <option value="Áo trên">Áo</option>
-                      <option value="Áo dưới">Quần</option>
-                      <option value="Áo mùa đông">Áo khoác</option>
+                      <option value="Áo">Áo</option>
+                      <option value="Quần">Quần</option>
+                      <option value="Áo khoác">Áo khoác</option>
                   </select>
                 </div>
 

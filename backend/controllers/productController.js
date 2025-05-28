@@ -31,7 +31,7 @@ const addProduct = async (req, res) => {
         sizes: JSON.parse(sizes),
         colors: colors ? JSON.parse(colors) : ['Đỏ', 'Xanh', 'Đen', 'Lục', 'Trắng'], // Màu sắc mặc định
         image: imagesUrl,
-        date: Date.now(),
+        date: new Date(),
       };
   
       const product = new productModel(productData);

@@ -109,8 +109,9 @@ const ShopContextProvider = (props) => {
             const response = await axios.get(backendUrl + '/api/product/list', {
                 params: { page: 1, limit: 100 }
             });
+            console.log("Dữ liệu từ API /api/product/list:", response.data.products.map(p => ({ _id: p._id, name: p.name, date: p.date })));
             if (response.data.success) {
-                setProducts(response.data.products.reverse());
+                setProducts(response.data.products); // Xóa reverse() để giữ thứ tự từ backend
             } else {
                 toast.error(response.data.message);
                 setProducts([]);

@@ -10,7 +10,7 @@ const productSchema = new mongoose.Schema({
   sizes: { type: Array, required: true },
   colors: { type: Array, default: ["Đỏ", "Xanh", "Đen", "Lục", "Trắng"] },
   bestseller: { type: Boolean },
-  date: { type: Number, required: true },
+  date: {type: Date,default: Date.now},
 });
 
 const productModel =

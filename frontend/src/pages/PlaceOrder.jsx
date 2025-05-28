@@ -1,3 +1,4 @@
+
 import React, { useContext, useState } from 'react'
 import Title from '../components/Title'
 import CartTotal from '../components/CartTotal'
@@ -6,7 +7,6 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 
 const PlaceOrder = () => {
-
     const [method, setMethod] = useState('cod');
     const { navigate, backendUrl, token, cartItems, setCartItems, getCartAmount, delivery_fee, products } = useContext(ShopContext);
     const [formData, setFormData] = useState({
@@ -30,16 +30,27 @@ const PlaceOrder = () => {
     const onSubmitHandler = async (event) => {
         event.preventDefault()
         try {
-
             let orderItems = []
 
-            for (const items in cartItems) {
-                for (const item in cartItems[items]) {
-                    if (cartItems[items][item] > 0) {
-                        const itemInfo = structuredClone(products.find(product => product._id === items))
+            for (const itemId in cartItems) {
+                for (const key in cartItems[itemId]) {
+                    if (cartItems[itemId][key].quantity > 0) {
+                        const itemInfo = structuredClone(products.find(product => product._id === itemId))
                         if (itemInfo) {
-                            itemInfo.size = item
-                            itemInfo.quantity = cartItems[items][item]
+                            itemInfo.size = cartItems[itemId][key].size
+                            itemInfo.color = cartItems[itemId][key].color
+                            itemInfo.quantity = cartItems[itemId][key].quantity
+                            // Tính giá dựa trên size và color
+                            const priceAdjustments = {
+                                'Xanh': { 'S': -20000, 'M': -10000, 'L': 10000, 'XL': 20000, 'XXL': 10000 },
+                                'Đỏ': { 'S': -10000, 'M': -20000, 'L': 10000, 'XL': 20000, 'XXL': 10000 },
+                                'Đen': { 'S': -30000, 'M': -40000, 'L': 10000, 'XL': 20000, 'XXL': 40000 },
+                                'Lục': { 'S': -40000, 'M': -30000, 'L': 10000, 'XL': 20000, 'XXL': 30000 },
+                                'Trắng': { 'S': -50000, 'M': -50000, 'L': 10000, 'XL': 20000, 'XXL': 50000 },
+                            };
+                            const basePrice = itemInfo.price;
+                            const adjustment = priceAdjustments[itemInfo.color][itemInfo.size] || 0;
+                            itemInfo.price = basePrice + adjustment;
                             orderItems.push(itemInfo)
                         }
                     }
@@ -53,7 +64,6 @@ const PlaceOrder = () => {
             }
 
             switch (method) {
-
                 // API Calls for COD
                 case 'cod':
                     const response = await axios.post(backendUrl + '/api/order/place', orderData, { headers: { token } })
@@ -78,7 +88,6 @@ const PlaceOrder = () => {
                 default:
                     break;
             }
-
         } catch (error) {
             console.log(error)
             toast.error(error.message)
@@ -89,7 +98,6 @@ const PlaceOrder = () => {
         <form onSubmit={onSubmitHandler} className='flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t'>
             {/* ------------- Left Side ---------------- */}
             <div className='flex flex-col gap-4 w-full sm:max-w-[480px]'>
-
                 <div className='text-xl sm:text-2xl my-3'>
                     <Title text1={'THÔNG TIN'} text2={'NGƯỜI NHẬN'} />
                 </div>
@@ -112,13 +120,11 @@ const PlaceOrder = () => {
 
             {/* ------------- Right Side ------------------ */}
             <div className='mt-8'>
-
                 <div className='mt-8 min-w-80'>
                     <CartTotal />
                 </div>
-
                 <div className='mt-12'>
-                    <Title text1={'PHƯƠNG THỨC'} text2={'THANH TOÁN '} />
+                    <Title text1={'PHƯƠNG THỨC'} text2={'THANH TOÁN'} />
                     {/* --------------- Payment Method Selection ------------- */}
                     <div className='flex gap-3 flex-col lg:flex-row'>
                         <div onClick={() => setMethod('vnpay')} className='flex items-center gap-3 border p-2 px-3 cursor-pointer'>
@@ -130,7 +136,6 @@ const PlaceOrder = () => {
                             <p className='text-gray-500 text-sm font-medium mx-4'>THANH TOÁN KHI NHẬN HÀNG</p>
                         </div>
                     </div>
-
                     <div className='w-full text-end mt-8'>
                         <button type='submit' className='bg-black text-white px-16 py-3 text-sm'>TIẾN HÀNH THANH TOÁN</button>
                     </div>

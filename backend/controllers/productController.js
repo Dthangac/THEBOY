@@ -47,7 +47,7 @@ const addProduct = async (req, res) => {
 const listProducts = async (req, res) => {
   try {
       const page = parseInt(req.query.page) || 1;
-      const limit = parseInt(req.query.limit) || 8;
+      const limit = parseInt(req.query.limit) || 5;
       const skipCount = (page - 1) * limit;
       const products = await productModel.find({})
           .sort({ date: -1 })

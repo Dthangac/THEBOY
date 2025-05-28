@@ -108,21 +108,44 @@ const ShopContextProvider = (props) => {
         return totalAmount;
     }
 
+    // const getProductsData = async () => {
+    //     try {
+
+    //         const response = await axios.get(backendUrl + '/api/product/list')
+    //         if (response.data.success) {
+    //             setProducts(response.data.products.reverse())
+    //         } else {
+    //             toast.error(response.data.message)
+    //         }
+
+    //     } catch (error) {
+    //         console.log(error)
+    //         toast.error(error.message)
+    //     }
+    // }
     const getProductsData = async () => {
-        try {
+    try {
+      if (!backendUrl) {
+        throw new Error("Biến môi trường VITE_BACKEND_URL không được định nghĩa.");
+      }
 
-            const response = await axios.get(backendUrl + '/api/product/list')
-            if (response.data.success) {
-                setProducts(response.data.products.reverse())
-            } else {
-                toast.error(response.data.message)
-            }
+      const response = await axios.get(backendUrl + '/api/product/list', {
+        params: { page: 1, limit: 100 } // Truyền limit lớn hơn
+      });
+      console.log("Dữ liệu từ API /api/product/list:", response.data); // Log để debug
 
-        } catch (error) {
-            console.log(error)
-            toast.error(error.message)
-        }
+      if (response.data.success) {
+        setProducts(response.data.products.reverse());
+      } else {
+        toast.error(response.data.message);
+        setProducts([]); // Đặt mảng rỗng nếu API trả về lỗi
+      }
+    } catch (error) {
+      console.error("Lỗi khi lấy danh sách sản phẩm:", error);
+      toast.error("Không thể tải danh sách sản phẩm. Vui lòng kiểm tra kết nối API.");
+      setProducts([]); // Đặt mảng rỗng nếu có lỗi
     }
+  };
 
     const getUserCart = async ( token ) => {
         try {

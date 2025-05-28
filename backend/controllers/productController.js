@@ -82,5 +82,16 @@ const singleProduct = async (req, res) => {
         res.json({ success: false, message: error.message })
     }
 }
+const getProductById = async (req, res) => {
+  try {
+    const product = await productModel.findById(req.params.id);
+    if (!product) {
+      return res.json({ success: false, message: "Không tìm thấy sản phẩm" });
+    }
+    res.json({ success: true, product });
+  } catch (error) {
+    res.json({ success: false, message: "Lỗi server", error: error.message });
+  }
+};
 
-export { listProducts, addProduct, removeProduct, singleProduct }
+export { listProducts, addProduct, removeProduct, singleProduct, getProductById }

@@ -45,17 +45,28 @@ const addProduct = async (req, res) => {
   };
 // function for list product
 const listProducts = async (req, res) => {
-    try {
-        
-        const products = await productModel.find({});
-        res.json({success:true,products})
+  try {
+      const page = parseInt(req.query.page) || 1; 
+      const limit = parseInt(req.query.limit) || 8; 
+      const skipCount = (page - 1) * limit;
+      const products = await productModel.find({})
+          .sort({ date: -1 }) 
+          .skip(skipCount)
+          .limit(limit);
+      const totalProductsCount = await productModel.countDocuments({});
 
-    } catch (error) {
-        console.log(error)
-        res.json({ success: false, message: error.message })
-    }
+      res.json({
+          success: true,
+          products: products, 
+          totalProductsCount: totalProductsCount, 
+          message: "Products listed successfully"
+      });
+
+  } catch (error) {
+      console.error("Lỗi khi lấy danh sách sản phẩm:", error);
+      res.json({ success: false, message: "Lỗi khi lấy danh sách sản phẩm" });
+  }
 }
-
 // function for removing product
 const removeProduct = async (req, res) => {
     try {

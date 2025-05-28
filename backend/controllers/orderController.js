@@ -122,11 +122,36 @@ const verifyVNPay = async (req, res) => {
 // All Orders data for Admin Panel
 const allOrders = async (req, res) => {
     try {
-        const orders = await orderModel.find({});
-        res.json({ success: true, orders });
+        // Lấy tham số page và limit từ body của request POST
+        // Frontend của bạn đang gửi { page, limit } trong body.
+        // Chuyển đổi sang số nguyên, cung cấp giá trị mặc định nếu không có
+        const page = parseInt(req.body.page) || 1; // Mặc định trang 1
+        const limit = parseInt(req.body.limit) || 5; // Mặc định 10 đơn hàng/trang (theo code frontend trước đó)
+
+        // Tính toán số lượng đơn hàng cần bỏ qua (skip)
+        const skipCount = (page - 1) * limit;
+
+        // Lấy danh sách đơn hàng cho trang hiện tại
+        // Sử dụng .skip() và .limit() của Mongoose
+        // .sort({ date: -1 }) để danh sách đơn hàng mới nhất hiển thị trước
+        const orders = await orderModel.find({})
+            .sort({ date: -1 }) // Sắp xếp theo ngày giảm dần
+            .skip(skipCount)
+            .limit(limit);
+
+        // Đếm tổng số lượng đơn hàng trong toàn bộ collection (không phân trang)
+        const totalOrdersCount = await orderModel.countDocuments({});
+
+        // Trả về cả danh sách đơn hàng của trang hiện tại và tổng số lượng
+        res.json({
+            success: true,
+            orders: orders, // Danh sách đơn hàng của trang hiện tại
+            totalOrdersCount: totalOrdersCount // Tổng số đơn hàng
+        });
+
     } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: error.message });
+        console.error("Lỗi khi lấy danh sách đơn hàng:", error); // Log lỗi chi tiết hơn
+        res.json({ success: false, message: "Lỗi khi lấy danh sách đơn hàng" }); // Thông báo lỗi chung
     }
 };
 

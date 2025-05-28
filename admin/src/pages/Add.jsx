@@ -15,7 +15,7 @@ const Add = ({token}) => {
    const [description, setDescription] = useState("");
    const [price, setPrice] = useState("");
    const [category, setCategory] = useState("Nam");
-   const [subCategory, setSubCategory] = useState("Áo trên");
+   const [subCategory, setSubCategory] = useState("Áo");
    const [bestseller, setBestseller] = useState(false);
    const [sizes, setSizes] = useState([]);
 
@@ -58,7 +58,7 @@ const Add = ({token}) => {
         setImage4(false)
         setPrice('')
         setCategory("Nam") // Reset về giá trị mặc định
-        setSubCategory("Áo trên") // Reset về giá trị mặc định
+        setSubCategory("Áo") // Reset về giá trị mặc định
         setSizes([]) // Reset kích thước
         setBestseller(false) // Reset bestseller
       } else {

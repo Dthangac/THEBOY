@@ -1,6 +1,6 @@
 import { v2 as cloudinary } from "cloudinary"
 import productModel from "../models/productModel.js"
-import fs from 'fs'; // Import fs để xóa các tệp tạm thời nếu cần
+import fs from 'fs';
 
 // Hàm để thêm sản phẩm
 const addProduct = async (req, res) => {

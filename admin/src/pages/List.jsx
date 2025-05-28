@@ -74,8 +74,7 @@ const List = ({ token }) => {
             <p>{item.name}</p>
             <p>{item.category}</p>
             <p>
-              {item.price}
-              {currency}
+              {item.price.toLocaleString()} {currency}
             </p>
             <div className="flex justify-end md:justify-center items-center gap-2">
               <p
